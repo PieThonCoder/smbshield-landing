@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Risk estimate — Demo store (synthetic fixtures)</title><style>body{font-family:system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem;line-height:1.55;color:#1a1a1a}code{background:#f2f2f2;padding:1px 4px;border-radius:3px}blockquote{border-left:4px solid #999;margin:0;padding:.5rem 1rem;background:#f7f7f7}h1{font-size:1.5rem}h2{font-size:1.2rem;margin-top:2rem}h3{font-size:1.05rem}</style></head><body><h1>Accessibility Risk Estimate — Demo store (synthetic fixtures)</h1>
+<p><strong>Risk level: ELEVATED (58/100)</strong> — automated estimate, 1 page(s) scanned.</p>
+<p>Multiple issue classes that appear in real ADA complaints are present. Prioritize the high-severity sections below.</p>
+<p>&gt; This report is an automated estimate of accessibility risk based on machine-checkable WCAG 2.1 criteria. It is not a legal opinion, not an audit, and not a substitute for testing with assistive technology or a human expert review. No automated tool can establish that a website meets the ADA, WCAG, or any other standard.</p>
+<h2>What we found</h2>
+<h3>Product images without alt text — 5 found (severity high, WCAG 1.1.1)</h3>
+<p>Screen-reader users hear nothing (or a filename) for these images. Missing alternative text is the single most common allegation in ADA complaints against online stores.</p>
+<ul>
+<li><code>&lt;img src="products/hero-banner.jpg"&gt;</code>: img has no alt attribute (alt="" would mark it decorative) — store_bad_SYNTHETIC.html</li>
+<li><code>&lt;img src="products/tshirt-red.jpg"&gt;</code>: img has no alt attribute (alt="" would mark it decorative) — store_bad_SYNTHETIC.html</li>
+<li><code>&lt;img src="products/tshirt-blue.jpg"&gt;</code>: img has no alt attribute (alt="" would mark it decorative) — store_bad_SYNTHETIC.html</li>
+<li>...and 2 more like these.</li>
+</ul>
+<p><strong>How to fix:</strong> Add a short description of what the image shows to each img tag's alt attribute. Purely decorative images should get an empty alt="" instead.</p>
+<h3>Form fields without labels — 2 found (severity high, WCAG 1.3.1)</h3>
+<p>Checkout and search fields with no programmatic label force assistive-technology users to guess what to type. Checkout blockers are the second most common allegation class in e-commerce filings.</p>
+<ul>
+<li><code>&lt;input name="q"&gt;</code>: form control has no &lt;label&gt;, aria-label, or title (placeholder is not a label) — store_bad_SYNTHETIC.html</li>
+<li><code>&lt;select name="size"&gt;</code>: form control has no &lt;label&gt;, aria-label, or title — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Associate a &lt;label for="..."&gt; with each field, or add an aria-label. Placeholder text disappears on input and does not count as a label.</p>
+<h3>Text failing contrast (inline styles) — 1 found (severity high, WCAG 1.4.3)</h3>
+<p>Text below the 4.5:1 contrast minimum is unreadable for low-vision users — and often for anyone on a phone in sunlight.</p>
+<ul>
+<li><code>&lt;p&gt;</code>: inline style #888888 on #ffffff = 3.54:1 (AA needs 4.5:1) — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Darken the text color or lighten the background until the pair reaches 4.5:1. The attached patch proposes minimal color changes.</p>
+<h3>Theme colors failing contrast — 4 found (severity high, WCAG 1.4.3)</h3>
+<p>Theme stylesheet rules that render text below the 4.5:1 AA minimum against their declared background.</p>
+<ul>
+<li><code>.btn-primary</code>: #9aabbc on #ffffff = 2.35:1 (AA needs 4.5:1) — theme_bad_SYNTHETIC.css</li>
+<li><code>.hero-banner h2</code>: #ffffff on #e8e8e8 = 1.23:1 (AA needs 4.5:1) — theme_bad_SYNTHETIC.css</li>
+<li><code>.footer a</code>: #6699cc on #ffffff = 3.00:1 (AA needs 4.5:1) — theme_bad_SYNTHETIC.css</li>
+<li>...and 1 more like these.</li>
+</ul>
+<p><strong>How to fix:</strong> Apply the attached override stylesheet, or adjust the theme's color settings. Each line in the patch keeps your brand hue and moves lightness the minimum distance needed.</p>
+<h3>Buttons with no accessible name — 1 found (severity high, WCAG 4.1.2)</h3>
+<p>Icon-only buttons (cart, search, close) with no text or aria-label are announced as just 'button' — the user cannot know what it does.</p>
+<ul>
+<li><code>&lt;button class="search-btn"&gt;</code>: button has no text and no aria-label — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Add an aria-label describing the action, e.g. aria-label="Add to cart".</p>
+<h3>Links with no accessible name — 1 found (severity high, WCAG 2.4.4)</h3>
+<p>Icon-only links with no text or aria-label are announced as just 'link' — navigation becomes guesswork.</p>
+<ul>
+<li><code>&lt;a href="/cart"&gt;</code>: link has no text and no aria-label (icon-only?) — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Add an aria-label to icon links, e.g. aria-label="View cart".</p>
+<h3>Mouse-only interactive elements — 1 found (severity med, WCAG 2.1.1)</h3>
+<p>Elements that react to clicks but aren't real buttons or links can't be reached or activated with a keyboard. Keyboard-access failures are a core allegation in most ADA web complaints.</p>
+<ul>
+<li><code>&lt;div&gt;</code>: &lt;div&gt; has onclick but no role/tabindex — unreachable by keyboard — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Use a real &lt;button&gt; or &lt;a&gt;, or add role="button" tabindex="0" plus a keydown handler.</p>
+<h3>Broken focus order — 1 found (severity med, WCAG 2.4.3)</h3>
+<p>Positive tabindex values force keyboard focus to jump around the page in an author-defined order that rarely matches the visual order.</p>
+<ul>
+<li><code>&lt;a href="/faq"&gt;</code>: tabindex=3 overrides natural focus order — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Remove positive tabindex values; use DOM order (tabindex="0" is fine).</p>
+<h3>Pinch-zoom disabled — 1 found (severity med, WCAG 1.4.4)</h3>
+<p>The viewport meta tag blocks zooming, locking out low-vision users on mobile — where most store traffic is.</p>
+<ul>
+<li><code>&lt;meta name="viewport"&gt;</code>: viewport blocks zoom: content="width=device-width, initial-scale=1.0, user-scalable=no" — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Remove user-scalable=no and any maximum-scale below 2 from the viewport meta tag.</p>
+<h3>Alt text that is a filename or placeholder — 2 found (severity med, WCAG 1.1.1)</h3>
+<p>Alt text like "IMG_1234.jpg" is worse than useless — screen readers read it out character by character.</p>
+<ul>
+<li><code>&lt;img src="products/IMG_1234.jpg"&gt;</code>: alt looks like junk/filename: "IMG_1234.jpg" — store_bad_SYNTHETIC.html</li>
+<li><code>&lt;img src="products/candle.jpg"&gt;</code>: alt looks like junk/filename: "image" — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Replace with a short human description of the image.</p>
+<h3>Generic link text — 2 found (severity med, WCAG 2.4.4)</h3>
+<p>"Click here" and "read more" convey nothing when screen-reader users navigate by a list of links, which is how most navigate long pages.</p>
+<ul>
+<li><code>&lt;a href="/sale"&gt;</code>: link text "click here" is meaningless out of context — store_bad_SYNTHETIC.html</li>
+<li><code>&lt;a href="/blog"&gt;</code>: link text "read more" is meaningless out of context — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Make link text describe the destination: "Read our shipping policy".</p>
+<h3>Untitled embedded frames — 1 found (severity med, WCAG 4.1.2)</h3>
+<p>Embedded frames (reviews widgets, videos, maps) without a title are announced with no context.</p>
+<ul>
+<li><code>&lt;iframe src="https://reviews.example.com/widget"&gt;</code>: iframe has no title attribute — screen readers announce nothing useful — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Add title="..." describing the frame's content, e.g. title="Customer reviews".</p>
+<h3>Skipped heading levels — 1 found (severity low, WCAG 1.3.1)</h3>
+<p>Heading levels that jump (h1 to h3) break the page outline that screen-reader users navigate by.</p>
+<ul>
+<li><code>&lt;h3&gt;</code>: heading level jumps h1 -&gt; h3 — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Keep heading levels sequential; style size with CSS, not by picking a smaller heading tag.</p>
+<h3>Page language not declared — 1 found (severity low, WCAG 3.1.1)</h3>
+<p>Without a lang attribute, screen readers guess the pronunciation language — sometimes wrongly.</p>
+<ul>
+<li><code>&lt;html&gt;</code>: html tag has no lang attribute (SC 3.1.1) — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Add lang="en" (or the store's language) to the html tag.</p>
+<h2>Review suggested (not confirmed)</h2>
+<p>Items here could not be verified statically — a color measured against an *assumed* background, or an attribute that a JS framework fills in at page load. They are not counted in the score and were deliberately NOT auto-fixed.</p>
+<h3>Possible low contrast (inline, background unknown) — 1 found (severity med, WCAG 1.4.3)</h3>
+<p>These elements declare a text color without a background; measured against a white page they would fail. Needs a human look.</p>
+<ul>
+<li><code>&lt;span&gt;</code>: inline style #bbbbbb on assumed white = 1.92:1 (AA needs 4.5:1) — store_bad_SYNTHETIC.html</li>
+</ul>
+<p><strong>How to fix:</strong> Check what these elements actually sit on; if the contrast is under 4.5:1, adjust the text color.</p>
+<h3>Possible low contrast (theme, background unknown) — 1 found (severity med, WCAG 1.4.3)</h3>
+<p>These theme rules declare a text color without a background; measured against a white page they would fail. Needs a human look.</p>
+<ul>
+<li><code>.muted-note</code>: #aaaaaa on assumed:white = 2.32:1 (AA needs 4.5:1) — theme_bad_SYNTHETIC.css</li>
+</ul>
+<p><strong>How to fix:</strong> Check the real background behind each selector; if under 4.5:1, adjust.</p>
+<h2>Proposed color fixes</h2>
+<p>An additive override stylesheet with 4 minimal color adjustment(s) accompanies this report (patch.css). It changes text colors only — never layout, visibility, or backgrounds — and removing the one file restores the theme exactly. Before/after ratios are annotated on every rule.</p>
+<p>*Stylesheet coverage: 7 color pair(s) evaluated across 1 stylesheet(s); 1 declaration(s) were dynamic (CSS variables, gradients) and could not be statically checked.*</p>
+<h2>How this estimate works — and what it can't see</h2>
+<p>This scan statically analyzes the HTML and CSS your store serves. It checks</p>
+<p>machine-verifiable WCAG 2.1 criteria: image alternative text, form labels,</p>
+<p>color contrast (where both colors are declared), keyboard-access patterns,</p>
+<p>link/button naming, zoom blocking, frame titles, language and page-title</p>
+<p>metadata, and heading structure.</p>
+<p>What it cannot see: content rendered or repaired by JavaScript after page</p>
+<p>load, contrast of text over images or gradients, focus-visibility styling,</p>
+<p>media captions, and anything requiring human judgment about meaning. A clean</p>
+<p>result here is a good signal, not a clean bill of health, and issues listed</p>
+<p>under "review suggested" were measured against assumed backgrounds and need a</p>
+<p>human look before acting.</p>
+<p>Scoring: each confirmed issue class contributes points weighted by severity,</p>
+<p>by how often that failure class appears in real ADA e-commerce complaints,</p>
+<p>and (with diminishing returns) by how many instances were found. The 0-100</p>
+<p>scale is an internal yardstick for prioritization between stores and scans —</p>
+<p>it is not a legal measurement.</p></body></html>
