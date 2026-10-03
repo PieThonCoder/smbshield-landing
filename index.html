@@ -574,7 +574,7 @@
             <p>
               We re-scan your store every night, flag new accessibility issues the moment a theme
               update or new product introduces one, and keep your patch current. Not open for
-              signups yet — the free scan above is live today.
+              signups yet.
             </p>
             <!-- data-todo: honest placeholder — no payment path exists yet, so this is
                  intentionally inert (aria-disabled, no href) rather than a link to nowhere.
@@ -632,7 +632,7 @@
         var url = (document.getElementById('store-url').value || '').trim();
 
         if (!url) {
-          status.textContent = 'Enter your store URL above and we’ll queue your free risk report.';
+          status.textContent = 'The free scan isn’t open yet. Please check back soon.';
           return;
         }
 
@@ -640,7 +640,7 @@
 
         if (!formReady) {
           // Graceful degrade: no live form yet, so no redirect is attempted.
-          status.textContent = 'Thanks — you’re on the list. The scanner is coming online shortly and your report will follow.';
+          status.textContent = 'Thanks. The free scan isn’t open yet, so nothing was saved and no report will be sent. Please check back soon.';
           return;
         }
 
